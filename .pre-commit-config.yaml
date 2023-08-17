@@ -1,0 +1,37 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=1300']
+      - id: check-json
+      - id: check-toml
+      - id: check-xml
+      - id: check-yaml
+      - id: debug-statements
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: detect-private-key
+      #- id: end-of-file-fixer
+      - id: no-commit-to-branch
+        args: [--branch, 'main, test, develop']
+      - id: pretty-format-json
+        args: [--autofix]
+  - repo: local
+    hooks:
+      - id: check_typescript
+        name: Validate Typescript
+        entry: bash -c "cd frontend && yarn lint-staged"
+        language: system
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
+        always_run: false
+  - repo: local
+    hooks:
+      - id: check_typescript
+        name: Validate Typescript
+        entry: bash -c "cd ./backend/cdk && yarn lint-staged"
+        language: system
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
+        always_run: false
