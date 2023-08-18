@@ -1,34 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+// import { Amplify } from 'aws-amplify'
+// import { Authenticator } from '@aws-amplify/ui-react'
+import '@aws-amplify/ui-react/styles.css'
+import Main from './components/Main/Main'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+// Amplify.configure({
+//   aws_project_region: import.meta.env.REACT_APP_AWS_PROJECT_REGION,
+//   aws_cognito_region: import.meta.env.REACT_APP_AWS_COGNITO_REGION,
+//   aws_user_pools_id: import.meta.env.REACT_APP_AWS_USER_POOLS_ID,
+//   aws_user_pools_web_client_id: import.meta.env.REACT_APP_AWS_USER_POOLS_CLIENT_ID,
+//   oauth: {
+//     domain: 'photolip.auth.ap-northeast-1.amazoncognito.com',
+//     // scope: ["openid", "aws.cognito.signin.user.admin", "profile"],
+//     redirectSignIn: 'https://localhost:3000',
+//     redirectSignOut: 'https://localhost:3000',
+//     responseType: 'code'
+//   }
+// })
+
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    // <Authenticator
+    //   socialProviders={['facebook', 'google']}
+    //   loginMechanisms={['username']}
+    // >
+    //   {({ signOut, user }) => <Main signOut={signOut} user={user} />}
+    // </Authenticator>
+    <Main />
   )
 }
 

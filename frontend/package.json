@@ -9,13 +9,30 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest --ci --coverage --colors",
-    "test:update": "jest --coverage --ci --verbose --updateSnapshot --colors"
+    "test:update": "jest --coverage --ci --verbose --updateSnapshot --colors",
+    "generate-api": "npx openapi-codegen gen photolip"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^5.1.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.5",
+    "@mui/x-date-pickers": "^6.11.2",
+    "@tanstack/react-query": "^4.32.6",
+    "aws-amplify": "^5.3.8",
+    "date-fns": "^2.30.0",
+    "exifer": "^1.0.0-beta.2",
+    "heic2any": "^0.0.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-images-uploading": "^3.1.7",
+    "react-router-dom": "^6.15.0",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
+    "@openapi-codegen/cli": "^2.0.0",
+    "@openapi-codegen/typescript": "^7.0.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.4.0",

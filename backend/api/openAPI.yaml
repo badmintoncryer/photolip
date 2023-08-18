@@ -1,0 +1,617 @@
+openapi: "3.0.1"
+info:
+  title: "PhotolipApi"
+  version: "2022-07-29 08:18:09UTC"
+servers:
+  - url: "https://jhdfex74j7.execute-api.ap-northeast-1.amazonaws.com/{basePath}"
+    variables:
+      basePath:
+        default: "api"
+tags:
+  - name: "aws:cloudformation:stack-id"
+    x-amazon-apigateway-tag-value: "arn:aws:cloudformation:ap-northeast-1:214794239830:stack/PhotolipCdkStack/2f2285f0-f53b-11ec-8ad4-0ecb8f7e60e7"
+  - name: "aws:cloudformation:stack-name"
+    x-amazon-apigateway-tag-value: "PhotolipCdkStack"
+  - name: "aws:cloudformation:logical-id"
+    x-amazon-apigateway-tag-value: "PhotolipApi085B94DC"
+paths:
+  /travel:
+    post:
+      summary: travelの登録
+      operationId: createTravel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/travelDataRequestBody"
+            example:
+              userName: testuser
+              travelRecordId: 3
+      responses:
+        200:
+          description: travel登録成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/postTravelReturn"
+                example:
+                  status: OK
+                  message: "travel is successfully registered"
+                  travelId: 2
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-postTravelLambdaE47B979B-sFQO7I0kt7Z7/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - travel
+    delete:
+      summary: travelの削除
+      operationId: deleteTravel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/travelDataRequestBody"
+            example:
+              userName: testuser
+              travelRecordId: 3
+      responses:
+        200:
+          description: travel削除成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/deleteTravelReturn"
+                example:
+                  status: OK
+                  message: "travel is successfully deleted"
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-deleteTravelLambda21D406BD-zCd1SZlKl90t/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - travel
+  /travel/{travelId}:
+    get:
+      summary: travelIdを元にしたtravelの取得
+      operationId: getTravelById
+      responses:
+        200:
+          description: travel取得成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/travelData"
+                example:
+                  status: OK
+                  message: "travel is successfully seleected"
+                  travelId: 3
+                  userId: 2
+                  travelRecordId: 5
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-getTravelByIdLambda1B9803B4-Exh9V7MRLj3r/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - travel
+    delete:
+      summary: travelIdを元にしたtravelの削除
+      operationId: deleteTravelById
+      responses:
+        200:
+          description: travel削除成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/deleteTravelReturn"
+                example:
+                  status: OK
+                  message: "travel is successfully deleted"
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-deleteTravelByIdLambda71C6AE27-mzABbFaYSOIn/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - travel
+    parameters:
+      - name: "travelId"
+        in: "path"
+        description: "Generated path parameter for travelId"
+        required: true
+        schema:
+          type: "string"
+  /travelRecord:
+    get:
+      summary: travelRecordの取得
+      operationId: getTravelRecord
+      responses:
+        200:
+          description: travelRecord取得成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/travelRecord"
+      tags:
+        - travelRecord
+    post:
+      summary: travelRecordの登録
+      operationId: createTravelRecord
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/travelRecordRequestBody"
+            example:
+              userName: testuser
+              title: Croatia
+              startDate: 1659260770000
+              endDate: 1659360770000
+      responses:
+        200:
+          description: travelRecord登録成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/createTravelRecordReturn"
+                example:
+                  status: OK
+                  message: "travel is successfully registered"
+                  travelRecordId: 2
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-postTravelRecordLambda0A593D45-4KbQStIi38Tz/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - travelRecord
+    delete:
+      summary: travelRecordの削除
+      operationId: deleteTravelRecord
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/travelDataRequestBody"
+            example:
+              userName: testuser
+              title: Croatia
+              startDate: 1659260770000
+              endDate: 1659360770000
+      responses:
+        200:
+          description: travelRecord削除成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/deleteTravelRecordReturn"
+                example:
+                  status: OK
+                  message: "travelRecord is successfully deleted"
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-deleteTravelRecordLambdaDAEB7EBD-0FyD7FqYrEdS/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - travelRecord
+  /travelRecord/{travelRecordId}:
+    delete:
+      summary: travelRecordIdを元にしたTravelRecordの削除
+      operationId: deleteTravelRecordById
+      responses:
+        200:
+          description: travelRecord削除成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/deleteTravelRecordReturn"
+                example:
+                  status: OK
+                  message: "travelRecord is successfully deleted"
+        500:
+          description: 削除失敗
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-deleteTravelRecordByIdLambda39F1F-XmBuimY5Onb5/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - travelRecord
+    parameters:
+      - name: "travelRecordId"
+        in: "path"
+        description: "Generated path parameter for travelRecordId"
+        required: true
+        schema:
+          type: "string"
+  /user:
+    post:
+      summary: userの登録
+      operationId: createUser
+      responses:
+        200:
+          description: user登録成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/createUserReturn"
+                example:
+                  status: OK
+                  message: "user is successfully registered"
+                  userId: 2
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-postUser7BA52173-RfbzlgJLC3p8/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - user
+    delete:
+      summary: userの削除
+      operationId: deleteUser
+      responses:
+        200:
+          description: user削除成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/deleteUserReturn"
+                example:
+                  status: OK
+                  message: "user is successfully deleted"
+        500:
+          description: 削除失敗
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-deleteUser3C560078-IcmxJnMJ27dO/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - user
+  /user/{userId}:
+    get:
+      summary: userIdを元にしたuserの取得
+      operationId: getUserById
+      responses:
+        200:
+          description: user取得成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/userData"
+                example:
+                  status: OK
+                  message: "travel is successfully seleected"
+                  userId: 2
+                  userName: testUser
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-getUserById3F5C9914-c7qJizZYAHvI/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - user
+    delete:
+      summary: userの削除
+      operationId: deleteUserById
+      responses:
+        200:
+          description: user削除成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/deleteUserReturn"
+                example:
+                  status: OK
+                  message: "user is successfully deleted"
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-deleteUserByIdEF6B9B71-SdwwzaJYaUvg/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - user
+    parameters:
+      - name: "userId"
+        in: "path"
+        description: "Generated path parameter for userId"
+        required: true
+        schema:
+          type: "string"
+  /photo:
+    post:
+      summary: photoの登録
+      operationId: createPhoto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/photoRequestBody"
+            example:
+              description: プリトヴィッツエ国立公園での1枚
+              travelRecordId: 2
+              fileName: IMG-324.jpg
+              filePath: /4/IMG-324.jpg
+              isFavorite: true
+      responses:
+        200:
+          description: photo登録成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/postPhotoReturn"
+                example:
+                  status: OK
+                  message: photo is successfully registered
+                  photoId: 5
+      security:
+        - PhotolipCognitoAuthorizer: []
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:214794239830:function:PhotolipCdkStack-postPhotoLambda3028AE90-Wr7e9wgkWbvX/invocations"
+        connectionType: "INTERNET"
+      tags:
+        - photo
+components:
+  securitySchemes:
+    PhotolipCognitoAuthorizer:
+      type: "oauth2"
+      flows: {}
+      x-amazon-apigateway-authorizer:
+        identitySource: "$request.header.Authorization"
+        jwtConfiguration:
+          audience:
+            - "33bdktfof0qfasac3b8sna48lh"
+          issuer: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_8qJE5TWwo"
+        type: "jwt"
+  schemas:
+    travelRecord:
+      type: object
+      required:
+        - title
+        - start
+        - end
+      properties:
+        title:
+          type: string
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+    travelDataRequestBody:
+      type: object
+      required:
+        - userName
+        - travelRecordId
+      properties:
+        userName:
+          type: string
+        travelRecordId:
+          type: integer
+          format: int64
+    postTravelReturn:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        travelId:
+          type: integer
+          format: int64
+    deleteTravelReturn:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    travelData:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        travelId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        travelRecordId:
+          type: integer
+          format: int64
+    travelRecordRequestBody:
+      type: object
+      required:
+        - userName
+      properties:
+        userName:
+          type: string
+        title:
+          type: string
+        startDate:
+          type: integer
+          format: int64
+        endDate:
+          type: integer
+          format: int64
+    createTravelRecordReturn:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        travelRecordId:
+          type: integer
+          format: int64
+    deleteTravelRecordReturn:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    createUserReturn:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        userId:
+          type: integer
+          format: int64
+    deleteUserReturn:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    photoRequestBody:
+      type: object
+      required:
+        - travelRecordId
+        - fileName
+        - filePath
+      properties:
+        description:
+          type: string
+        travelRecordId:
+          type: integer
+          format: int64
+        fileName:
+          type: string
+        filePath:
+          type: string
+        isFavorite:
+          type: string
+    postPhotoReturn:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        photoId:
+          type: integer
+          format: int64
+    userData:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        userId:
+          type: integer
+          format: int64
+        userName:
+          type: string
+x-amazon-apigateway-cors:
+  allowMethods:
+    - "*"
+  allowHeaders:
+    - "authorization"
+  maxAge: -42
+  allowCredentials: false
+  allowOrigins:
+    - "*"
+x-amazon-apigateway-importexport-version: "1.0"
